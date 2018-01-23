@@ -17,7 +17,7 @@ namespace EstudoApp.Data.Repositories
             Db.Set<TEntity>().Add(obj);
         }
 
-        public virtual TEntity GetById(int id)
+        public virtual TEntity GetById(int? id)
         {
             return Db.Set<TEntity>().AsNoTracking().SingleOrDefault(e => e.Id == id);
         }

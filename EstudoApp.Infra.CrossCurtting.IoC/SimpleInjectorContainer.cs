@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Web.Mvc;
+using AutoMapper;
 using EstudoApp.Data.Repositories;
 using EstudoApp.Domain.Interfaces;
 using SimpleInjector;
@@ -21,6 +22,9 @@ namespace EstudoApp.Infra.CrossCurtting.IoC
             Container.Register(typeof(IRepositoryBase<>), typeof(RepositoryBase<>));
             Container.Register<INinjaRepository, NinjaRepository>(Lifestyle.Scoped);
             Container.Register<INinjaClanRepository, NinjaClanRepository>(Lifestyle.Scoped);
+
+            Container.RegisterSingleton(Mapper.Configuration);
+            Container.Register<IMapper>(() => new Mapper(Mapper.Configuration), Lifestyle.Scoped);
 
             Container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
             Container.Verify();

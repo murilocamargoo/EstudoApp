@@ -51,16 +51,19 @@ namespace EstudoApp.Data.Context
         {
             foreach (var history in this.ChangeTracker.Entries().Where(e => e.Entity is IModificationHistory && (e.State == EntityState.Added || e.State == EntityState.Modified)).Select(e => e.Entity as IModificationHistory))
             {
-                history.DateModified = DateTime.Now;
-                if (history.DateCreated == DateTime.MinValue)
-                    history.DateCreated = DateTime.Now;
+                if (history != null)
+                {
+                    history.DateModified = DateTime.Now;
+                    if (history.DateCreated == DateTime.MinValue)
+                        history.DateCreated = DateTime.Now;
+                }
             }
 
             int result = base.SaveChanges();
 
             foreach (var history in this.ChangeTracker.Entries().Where(e => e.Entity is IModificationHistory).Select(e => e.Entity as IModificationHistory))
             {
-                history.IsDirty = false;
+                if (history != null) history.IsDirty = false;
             }
 
             return result;

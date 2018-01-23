@@ -1,4 +1,5 @@
-﻿using EstudoApp.Domain.Entities;
+﻿using System;
+using EstudoApp.Domain.Entities;
 using EstudoApp.Domain.Interfaces;
 
 namespace EstudoApp.Data.Repositories
